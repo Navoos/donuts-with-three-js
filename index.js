@@ -1,6 +1,9 @@
 import * as THREE from 'three'
 import { FontLoader, OrbitControls, TextGeometry } from 'three/examples/jsm/Addons.js';
 import { RGBELoader } from 'three/examples/jsm/Addons.js';
+import gsap from 'gsap';
+
+
 
 // definitions
 const texturePath = "textures";
@@ -91,6 +94,7 @@ fontLoader.load(fontsPath + fontFamily, (font) => {
 		if (textBox.intersectsBox(donutBox)) continue;
 		scene.add(donutMesh);
 	}
+	console.log(donutsPosition);
 })
 
 // handle resizing
@@ -101,6 +105,17 @@ window.addEventListener("resize", () => {
 	camera.updateProjectionMatrix();
 	renderer.setSize(sizes.width, sizes.height);
 	renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
+});
+
+window.addEventListener("load", () => {
+	gsap.to(camera.position, {
+		x: 0,
+		z: -4,
+		y: 0,
+		ease: "power2.inOut",
+		duration: 3,
+		delay: 1
+	});
 });
 
 
